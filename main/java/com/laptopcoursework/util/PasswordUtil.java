@@ -112,9 +112,9 @@ public class PasswordUtil {
     }
 
     // Verify if the entered password matches the stored password
-    public static boolean verify(String enteredPassword, String storedEncryptedPassword) {
-        // Decrypt the stored password using the stored encrypted password and username
-        String decryptedPassword = decrypt(storedEncryptedPassword, enteredPassword);
+    public static boolean verify(String username, String enteredPassword, String storedEncryptedPassword) {
+        // Decrypt the stored password using the correct username
+        String decryptedPassword = decrypt(storedEncryptedPassword, username);
 
         // If decryption is successful and the decrypted password matches the entered password
         return decryptedPassword != null && decryptedPassword.equals(enteredPassword);
