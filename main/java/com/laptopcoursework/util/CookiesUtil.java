@@ -4,8 +4,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.Arrays;
-
 /**
  * Utility class for managing cookies in a web application. Provides methods to
  * add, retrieve, and delete cookies.
@@ -34,13 +32,17 @@ public class CookiesUtil {
 	 * @param name    the name of the cookie to retrieve
 	 * @return the Cookie object if found, otherwise null
 	 */
-	public static Cookie getCookie(HttpServletRequest request, String name) {
-		if (request.getCookies() != null) {
-			return Arrays.stream(request.getCookies()).filter(cookie -> name.equals(cookie.getName())).findFirst()
-					.orElse(null);
-		}
-		return null;
-	}
+        public static Cookie getCookie(HttpServletRequest request, String name) {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                        for (Cookie cookie : cookies) {
+                                if (name.equals(cookie.getName())) {
+                                        return cookie;
+                                }
+                        }
+                }
+                return null;
+        }
 
 	/**
 	 * Deletes a cookie by setting its max age to 0.
